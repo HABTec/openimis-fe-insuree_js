@@ -205,7 +205,9 @@ class InsureeForm extends Component {
   };
 
   _save = (insuree) => {
-    if (!this.doesPhotoChange()) delete insuree.photo 
+    if (insuree.uuid) {
+      if (!this.doesPhotoChange()) delete insuree.photo
+    }
     this.setState({ lockNew: !insuree.id, isSaved: true }, 
     (e) => this.props.save(insuree));
   };

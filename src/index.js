@@ -151,7 +151,7 @@ const DEFAULT_CONFIG = {
     { path: ROUTE_INSUREE_PROFILE + "/:insuree_uuid", component: ProfilePage },
   ],
   "core.AppBar": [Enquiry],
-  "core.MainMenu": [InsureeMainMenu],
+  "core.MainMenu": [{ name: 'InsureeMainMenu', component: InsureeMainMenu }],
   "insuree.InsureeSummaryAvatar": [InsureeAvatar],
   "insuree.InsureeSummaryExt": [InsureeFirstServicePointDisplay],
   "insuree.Insuree.panels": [InsureeFirstServicePointPanel],

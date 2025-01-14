@@ -40,6 +40,7 @@ class InsureeMainMenu extends Component {
           header={formatMessage(this.props.intl, "insuree", "workersMainMenu")}
           icon={<AssignmentInd />}
           entries={entries}
+          menuId="InsureeMainMenu"
         />
       );
     }

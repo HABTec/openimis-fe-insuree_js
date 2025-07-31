@@ -17,9 +17,11 @@ const FAMILY_HEAD_PROJECTION = (mm) => [
   "uuid",
   "chfId",
   "lastName",
+  "middleName",
+  "isActive",
+  "disabilityStatus",
   "otherNames",
   "dob",
-  "age",
   "validityFrom",
   "validityTo",
   `photo{id,uuid,date,folder,filename,officerId,photo}`,
@@ -64,9 +66,11 @@ const INSUREE_FULL_PROJECTION = (mm) => [
   "uuid",
   "chfId",
   "lastName",
+  "middleName",
+  "isActive",
+  "disabilityStatus",
   "otherNames",
   "dob",
-  "age",
   "validityFrom",
   "validityTo",
   `family{${FAMILY_FULL_PROJECTION(mm).join(",")}}`,
@@ -311,12 +315,15 @@ function formatInsureePhoto(photo) {
 
 export function formatInsureeGQL(mm, insuree) {
   return `
-    ${insuree.uuid !== undefined && insuree.uuid !== null ? `uuid: "${insuree.uuid}"` : ""}
-    ${!!insuree.chfId ? `chfId: "${formatGQLString(insuree.chfId)}"` : ""}
-    ${!!insuree.lastName ? `lastName: "${formatGQLString(insuree.lastName)}"` : ""}
-    ${!!insuree.otherNames ? `otherNames: "${formatGQLString(insuree.otherNames)}"` : ""}
-    ${!!insuree.gender && !!insuree.gender.code ? `genderId: "${insuree.gender.code}"` : ""}
-    ${!!insuree.dob ? `dob: "${insuree.dob}"` : ""}
+  ${insuree.uuid !== undefined && insuree.uuid !== null ? `uuid: "${insuree.uuid}"` : ""}
+  ${!!insuree.chfId ? `chfId: "${formatGQLString(insuree.chfId)}"` : ""}
+  ${!!insuree.lastName ? `lastName: "${formatGQLString(insuree.lastName)}"` : ""}
+  ${!!insuree.middleName ? `middleName: "${formatGQLString(insuree.middleName)}"` : ""}
+  ${!!insuree.disabilityStatus ? `disabilityStatus: "${formatGQLString(insuree.disabilityStatus)}"` : ""}
+  ${!!insuree.otherNames ? `otherNames: "${formatGQLString(insuree.otherNames)}"` : ""}
+  ${!!insuree.gender && !!insuree.gender.code ? `genderId: "${insuree.gender.code}"` : ""}
+  ${!!insuree.dob ? `dob: "${insuree.dob}"` : ""}
+  isActive:${!!insuree.isActive}
     head: ${!!insuree.head}
     ${!!insuree.marital ? `marital: "${insuree.marital}"` : ""}
     ${!!insuree.passport ? `passport: "${formatGQLString(insuree.passport)}"` : ""}
@@ -325,7 +332,7 @@ export function formatInsureeGQL(mm, insuree) {
     ${!!insuree.currentAddress ? `currentAddress: "${formatGQLString(insuree.currentAddress)}"` : ""}
     ${
       !!insuree.currentVillage && !!insuree.currentVillage.id
-        ? `currentVillageId: ${decodeId(insuree.currentVillage.id)}`
+      ? `currentVillageId: ${decodeId(insuree.currentVillage.id)}`
         : ""
     }
     ${!!insuree.photo ? `photo:${formatInsureePhoto(insuree.photo)}` : ""}

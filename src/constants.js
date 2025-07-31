@@ -2,6 +2,23 @@ export const INSUREE_MARITAL_STATUS = ["N", "W", "S", "D", "M"];
 export const FAMILY_POVERTY_STATUS = [true, false];
 export const PHOTO_STATUS = ["with", "without"];
 export const FAMILY_STATUS = ["with", "without"];
+export const disabilityStatusOptions = [
+    "no_disability",
+    "physical_disability",
+    "visual_impairment",
+    "hearing_impairment",
+    "speech_disability",
+    "intellectual_disability",
+    "mental_disorder",
+    "autism_spectrum_disorder",
+    "cerebral_palsy",
+    "multiple_sclerosis",
+    "parkinsons_disease",
+    "spinal_cord_injury",
+    "amputation",
+    "chronic_neurological_condition",
+    "other_disability",
+];
 export const EMPTY_STRING = "";
 export const MODULE_NAME = "insuree";
 

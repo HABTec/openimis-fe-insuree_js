@@ -14,7 +14,7 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "format": "prettier src -w",
-    "prepare":"npm run build"
+    "prepare": "npm run build"
   },
   "peerDependency": {
     "react-intl": "^5.8.1"
@@ -43,5 +43,9 @@
   "files": [
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.1",
+    "qrcode.react": "^4.2.0"
+  }
 }

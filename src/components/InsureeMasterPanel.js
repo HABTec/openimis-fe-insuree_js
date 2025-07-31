@@ -20,6 +20,7 @@ const styles = (theme) => ({
     height: "100%",
   },
 });
+import { DEFAULT, disabilityStatusOptions, INSUREE_ACTIVE_STRING } from "../constants";
 import { DEFAULT, INSUREE_ACTIVE_STRING } from "../constants";
 
 const INSUREE_INSUREE_CONTRIBUTION_KEY = "insuree.Insuree";
@@ -338,9 +339,6 @@ class InsureeMasterPanel extends FormPanel {
                       />
                     </Grid>
                   )}
-                  {!!edited &&
-                    !!edited.family &&
-                    !!edited.family}
                   {!!edited &&
                     !!edited.family &&
                     !!edited.family.headInsuree &&

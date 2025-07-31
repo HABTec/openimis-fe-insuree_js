@@ -18,6 +18,9 @@ class InsureePage extends Component {
   };
 
   save = (insuree) => {
+    if(!!insuree.disabilityStatus){
+      insuree.disabilityStatus = insuree.disabilityStatus.toLowerCase();
+    }
     if (!insuree.uuid) {
       this.props.createInsuree(
         this.props.modulesManager,

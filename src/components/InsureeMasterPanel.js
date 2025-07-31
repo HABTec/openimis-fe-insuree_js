@@ -68,6 +68,20 @@ class InsureeMasterPanel extends FormPanel {
     </Grid>
   );
 
+  renderMiddleNameField = (edited, classes, readOnly) => (
+    <Grid item xs={2} className={classes.item}>
+      <TextInput
+        module="insuree"
+        label="Insuree.middleNames"
+        required={true}
+        readOnly={readOnly}
+        value={!!edited && !!edited.middleName ? edited.middleName : ""}
+        onChange={(v) => this.updateAttribute("middleName", v)}
+      />
+    </Grid>
+  );
+
+
   render() {
     const {
       intl,
@@ -120,26 +134,32 @@ class InsureeMasterPanel extends FormPanel {
             </Grid>
             <Divider />
             <Grid container className={classes.item}>
-              <Grid item xs={4} className={classes.item}>
-                <PublishedComponent
-                  pubRef="insuree.InsureeNumberInput"
-                  module="insuree"
-                  label="Insuree.chfId"
-                  required={true}
-                  readOnly={readOnly}
-                  value={edited?.chfId}
-                  editedId={editedId}
-                  onChange={(v) => this.updateAttribute("chfId", v)}
-                />
-              </Grid>
+              {!!edited && !!edited.chfId ?
+                <Grid item xs={4} className={classes.item}>
+                  <PublishedComponent
+                    pubRef="insuree.InsureeNumberInput"
+                    module="insuree"
+                    label="Insuree.chfId"
+                    required={true}
+                    readOnly={true}
+                    value={edited?.chfId}
+                    editedId={editedId}
+                    onChange={(v) => this.updateAttribute("chfId", v)}
+                  />
+                </Grid>
+                : (
+                  ""
+                )}
               {this.renderLastNameFirst ? (
                 <>
-                  {this.renderLastNameField(edited, classes, readOnly)}
                   {this.renderGivenNameField(edited, classes, readOnly)}
+                  {this.renderMiddleNameField(edited, classes, readOnly)}
+                  {this.renderLastNameField(edited, classes, readOnly)}
                 </>
               ) : (
                 <>
                   {this.renderGivenNameField(edited, classes, readOnly)}
+                  {this.renderMiddleNameField(edited, classes, readOnly)}
                   {this.renderLastNameField(edited, classes, readOnly)}
                 </>
               )}
@@ -156,6 +176,26 @@ class InsureeMasterPanel extends FormPanel {
                       maxDate={new Date()}
                       onChange={(v) => this.updateAttribute("dob", v)}
                     />
+                  </Grid>
+                  <Grid item xs={3} className={classes.item}>
+                    <FormControl >
+                      <InputLabel id="demo-simple-select-label">Disability Status </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        readOnly={readOnly}
+                        value={!!edited && !!edited.disabilityStatus ? edited.disabilityStatus?.toLowerCase() : ""}
+                        onChange={(v) => {
+
+                          this.updateAttribute("disabilityStatus", v.target.value)
+                        }}
+                      >
+                        {disabilityStatusOptions.map((v) => (
+                          <MenuItem key={v} value={v}>
+                            {formatMessage(this.props.intl, "insuree", `DisabilityType.${v}`)}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </Grid>
                   <Grid item xs={3} className={classes.item}>
                     <PublishedComponent
@@ -298,6 +338,29 @@ class InsureeMasterPanel extends FormPanel {
                       />
                     </Grid>
                   )}
+                  {!!edited &&
+                    !!edited.family &&
+                    !!edited.family}
+                  {!!edited &&
+                    !!edited.family &&
+                    !!edited.family.headInsuree &&
+                    edited.family.headInsuree.id !== edited.id &&
+                    <Grid item xs={3} className={classes.item}>
+
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            color="primary"
+                            checked={!!edited && !!edited.isActive}
+                            disabled={readOnly}
+                            onChange={(v) => this.updateAttribute("isActive", !edited || !edited.isActive)}
+                          />
+                        }
+                        // label={formatMessage(intl, "insuree", "Insuree.cardIssued")}
+                        label={"Active"}
+                      />
+                    </Grid>
+                  }
                 </Grid>
               </Grid>
               <Grid item xs={4} className={classes.item}>

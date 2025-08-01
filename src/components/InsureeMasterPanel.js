@@ -1,6 +1,6 @@
-import React from "react";
+import React, { createRef } from "react";
 import { withTheme, withStyles } from "@material-ui/core/styles";
-import { Paper, Grid, Typography, Divider, Checkbox, FormControlLabel } from "@material-ui/core";
+import { Paper, Grid, Typography, Divider, Checkbox, FormControlLabel, Button } from "@material-ui/core";
 import {
   formatMessage,
   withTooltip,
@@ -11,7 +11,20 @@ import {
   Contributions,
   withModulesManager,
 } from "@openimis/fe-core";
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { QRCodeCanvas } from 'qrcode.react';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import Alert from '@material-ui/lab/Alert';
 const styles = (theme) => ({
   paper: theme.paper.paper,
   tableTitle: theme.table.title,
@@ -27,6 +40,19 @@ const INSUREE_INSUREE_CONTRIBUTION_KEY = "insuree.Insuree";
 const INSUREE_INSUREE_PANELS_CONTRIBUTION_KEY = "insuree.Insuree.panels";
 
 class InsureeMasterPanel extends FormPanel {
+  state = {
+    open: false,
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+
   constructor(props) {
     super(props);
     this.isInsureeStatusRequired = props.modulesManager.getConf(
@@ -39,11 +65,27 @@ class InsureeMasterPanel extends FormPanel {
       "renderLastNameFirst",
       DEFAULT.RENDER_LAST_NAME_FIRST,
     );
+    this.divRef = createRef();
   }
+
+  handleDownloadPDF = () => {
+    const input = this.divRef.current;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("downloaded-content.pdf");
+    });
+  };
 
   renderLastNameField = (edited, classes, readOnly) => {
     return (
-      <Grid item xs={4} className={classes.item}>
+      <Grid item xs={3} className={classes.item}>
         <TextInput
           module="insuree"
           label="Insuree.lastName"
@@ -57,7 +99,7 @@ class InsureeMasterPanel extends FormPanel {
   };
 
   renderGivenNameField = (edited, classes, readOnly) => (
-    <Grid item xs={4} className={classes.item}>
+    <Grid item xs={3} className={classes.item}>
       <TextInput
         module="insuree"
         label="Insuree.otherNames"
@@ -105,8 +147,15 @@ class InsureeMasterPanel extends FormPanel {
                 <Typography variant="h5">
                   <FormattedMessage module="insuree" id={title} values={titleParams} />
                 </Typography>
+
               </Grid>
               <Grid item xs={9}>
+                <Grid container justify="flex-end" spacing={2}>
+                  <Grid item xs={2}>  
+                  {!!edited && !!edited.chfId ? <Button variant="outlined" color="primary" px={2} onClick={this.handleClickOpen}>
+                    Generate QR Code
+                  </Button> : ""}
+                  </Grid>
                 <Grid container justify="flex-end">
                   {!!edited &&
                     !!edited.family &&
@@ -131,6 +180,35 @@ class InsureeMasterPanel extends FormPanel {
                         </Grid>
                       );
                     })}
+
+                </Grid>
+                <Grid container justify="flex-end" >
+                  <Grid item xs={3}>
+                    <Dialog
+                      open={this.state.open}
+                      onClose={this.handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">Qr Code for {edited?.chfId}</DialogTitle>
+                      <DialogContent>
+                        <div ref={this.divRef} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+                          <QRCodeCanvas value={edited?.chfId} />
+                          <p>Name: {!!edited && !!edited.otherNames ? edited.otherNames : ""}{!!edited && !!edited.lastName ? edited.lastName : ""}</p>
+                          <p>Id: {edited?.chfId}</p>
+                        </div>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={this.handleDownloadPDF} color="primary">
+                          Download
+                        </Button>
+                        <Button onClick={this.handleClose} color="primary" autoFocus>
+                          Close
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

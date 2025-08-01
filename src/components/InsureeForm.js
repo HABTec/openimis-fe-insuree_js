@@ -200,7 +200,7 @@ class InsureeForm extends Component {
     const doesInsureeChange = this.doesInsureeChange();
     if (!doesInsureeChange) return false;
     if (this.state.lockNew) return false;
-    if(!this.isCurrentDateInRange()) return false;
+    if (!this.isCurrentDateInRange()) return false;
 
     return isValidInsuree(this.state.insuree, this.props.modulesManager);
     
@@ -230,6 +230,12 @@ class InsureeForm extends Component {
       const startDate = new Date(startDateStr);
       const endDate = new Date(endDateStr);
 
+     if (!startDateStr || isNaN(Date.parse(startDateStr))) {
+       return false;
+     }
+     if (!endDateStr || isNaN(Date.parse(endDateStr))) {
+       return false;
+     }
 
       let result = currentDate >= startDate && currentDate <= endDate;
       return result;
@@ -294,7 +300,11 @@ class InsureeForm extends Component {
               canSave={this.canSave}
               save={!!save ? this._save : null}
               openDirty={save}
-              canRegister={[this.isCurrentDateInRange() ,product?.enrolmentPeriodStartDate , product?.enrolmentPeriodEndDate]}
+               canRegister={{
+                allowed: this.isCurrentDateInRange(),
+                startDate: product?.enrolmentPeriodStartDate,
+                endDate: product?.enrolmentPeriodEndDate,
+              }}
             />
           )}
       </div>

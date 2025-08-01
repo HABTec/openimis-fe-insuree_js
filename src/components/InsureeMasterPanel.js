@@ -93,6 +93,7 @@ class InsureeMasterPanel extends FormPanel {
       readOnly = true,
       actions,
       editedId,
+      canRegister
     } = this.props;
 
     return (
@@ -375,6 +376,12 @@ class InsureeMasterPanel extends FormPanel {
                 updateAttribute={this.updateAttribute}
                 contributionKey={INSUREE_INSUREE_CONTRIBUTION_KEY}
               />
+              <Grid item xs={12} className={classes.item}>
+                {canRegister.isOpen ? "" : <Alert variant="outlined" severity="error">
+                  The registration period has now ended. It was open from {canRegister.startDate} to {canRegister.endDate}.
+                </Alert> }
+                
+              </Grid>
             </Grid>
           </Paper>
           <Contributions

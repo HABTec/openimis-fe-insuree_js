@@ -18,7 +18,7 @@ import {
   Helmet,
 } from "@openimis/fe-core";
 import { fetchInsureeFull, fetchFamily, clearInsuree, fetchInsureeMutation } from "../actions";
-import { DEFAULT, INSUREE_ACTIVE_STRING, RIGHT_INSUREE } from "../constants";
+import { DEFAULT, disabilityStatusOptions, INSUREE_ACTIVE_STRING, RIGHT_INSUREE } from "../constants";
 import { insureeLabel, isValidInsuree } from "../utils/utils";
 import FamilyDisplayPanel from "./FamilyDisplayPanel";
 import InsureeMasterPanel from "../components/InsureeMasterPanel";
@@ -131,6 +131,7 @@ class InsureeForm extends Component {
       insuree_uuid: insureeUuid,
       family_uuid: familyUuid,
       fetchInsureeFull,
+      product
     } = this.props;
 
     if (insureeUuid) {
@@ -199,12 +200,14 @@ class InsureeForm extends Component {
     const doesInsureeChange = this.doesInsureeChange();
     if (!doesInsureeChange) return false;
     if (this.state.lockNew) return false;
-    if (!this.props.isChfIdValid) return false;
+    if (!this.isCurrentDateInRange()) return false;
 
     return isValidInsuree(this.state.insuree, this.props.modulesManager);
+    
   };
 
   _save = (insuree) => {
+    
     if (insuree.uuid) {
       if (!this.doesPhotoChange()) delete insuree.photo
     }
@@ -215,6 +218,28 @@ class InsureeForm extends Component {
   onEditedChanged = (insuree) => {
     this.setState({ insuree, newInsuree: false });
   };
+   isCurrentDateInRange() {
+    const {
+    product
+    } = this.props;
+      const currentDate = new Date();
+      let startDateStr = product?.enrolmentPeriodStartDate
+      let endDateStr = product?.enrolmentPeriodEndDate
+
+
+      const startDate = new Date(startDateStr);
+      const endDate = new Date(endDateStr);
+
+     if (!startDateStr || isNaN(Date.parse(startDateStr))) {
+       return false;
+     }
+     if (!endDateStr || isNaN(Date.parse(endDateStr))) {
+       return false;
+     }
+
+      let result = currentDate >= startDate && currentDate <= endDate;
+      return result;
+    }
 
   render() {
     const {
@@ -232,6 +257,7 @@ class InsureeForm extends Component {
       classes,
       add,
       save,
+      product
     } = this.props;
     const { insuree, clientMutationId } = this.state;
     if (!rights.includes(RIGHT_INSUREE)) return null;
@@ -274,6 +300,11 @@ class InsureeForm extends Component {
               canSave={this.canSave}
               save={!!save ? this._save : null}
               openDirty={save}
+               canRegister={{
+                allowed: this.isCurrentDateInRange(),
+                startDate: product?.enrolmentPeriodStartDate,
+                endDate: product?.enrolmentPeriodEndDate,
+              }}
             />
           )}
       </div>
@@ -283,6 +314,7 @@ class InsureeForm extends Component {
 
 const mapStateToProps = (state, props) => ({
   rights: !!state.core && !!state.core.user && !!state.core.user.i_user ? state.core.user.i_user.rights : [],
+  product: !!state.core && !!state.core.userProduct ? state.core.userProduct[0] : null,
   fetchingInsuree: state.insuree.fetchingInsuree,
   errorInsuree: state.insuree.errorInsuree,
   fetchedInsuree: state.insuree.fetchedInsuree,

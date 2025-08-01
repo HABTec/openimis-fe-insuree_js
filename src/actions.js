@@ -113,7 +113,6 @@ export function fetchInsuree(mm, chfid) {
       "lastName",
       "otherNames",
       "dob",
-      "age",
       "validityFrom",
       "validityTo",
       "gender{code}",
@@ -138,7 +137,6 @@ export function fetchInsureeEnquiry(mm, chfid) {
       "lastName",
       "otherNames",
       "dob",
-      "age",
       "validityFrom",
       "validityTo",
       "gender{code}",
@@ -424,6 +422,22 @@ export function createInsuree(mm, insuree, clientMutationLabel) {
     clientMutationLabel,
     requestedDateTime,
   });
+}
+
+export function makeCardPayment(insuree, clientMutationLabel) {
+  let query = `
+  mutation {
+    makeCardPayment(familyId:${insuree.family.id}, insureeUuid: "${insuree.uuid}") {
+      internalId
+      clientMutationId
+      paymentUrl
+    }
+  }
+  `
+  let mutation = formatMutation("RequestCard", query, clientMutationLabel);
+  var requestedDateTime = new Date();
+  
+  return graphql(mutation.payload, "RequestCard");
 }
 
 export function updateInsuree(mm, insuree, clientMutationLabel) {

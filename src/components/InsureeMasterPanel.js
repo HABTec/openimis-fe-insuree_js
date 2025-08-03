@@ -34,7 +34,6 @@ const styles = (theme) => ({
   },
 });
 import { DEFAULT, disabilityStatusOptions, INSUREE_ACTIVE_STRING } from "../constants";
-import { DEFAULT, INSUREE_ACTIVE_STRING } from "../constants";
 
 const INSUREE_INSUREE_CONTRIBUTION_KEY = "insuree.Insuree";
 const INSUREE_INSUREE_PANELS_CONTRIBUTION_KEY = "insuree.Insuree.panels";
@@ -209,6 +208,7 @@ class InsureeMasterPanel extends FormPanel {
                       </DialogActions>
                     </Dialog>
                   </Grid>
+                </Grid>
                 </Grid>
               </Grid>
             </Grid>
@@ -455,9 +455,17 @@ class InsureeMasterPanel extends FormPanel {
                 contributionKey={INSUREE_INSUREE_CONTRIBUTION_KEY}
               />
               <Grid item xs={12} className={classes.item}>
-                {canRegister.isOpen ? "" : <Alert variant="outlined" severity="error">
-                  The registration period has now ended. It was open from {canRegister.startDate} to {canRegister.endDate}.
-                </Alert> }
+                {!canRegister.isOpen && !canRegister.startDate && !canRegister.endDate ? (
+                  <Alert variant="outlined" severity="warning">
+                    Registration Start and end dates should be configured.
+                  </Alert>
+                ) : (
+                  canRegister.isOpen ? "" : (
+                    <Alert variant="outlined" severity="error">
+                      The registration period has now ended. It was open from {canRegister.startDate} to {canRegister.endDate}.
+                    </Alert>
+                  )
+                )}
                 
               </Grid>
             </Grid>

@@ -200,7 +200,7 @@ class InsureeForm extends Component {
     const doesInsureeChange = this.doesInsureeChange();
     if (!doesInsureeChange) return false;
     if (this.state.lockNew) return false;
-    if (!this.isCurrentDateInRange()) return false;
+    if (!this.isCurrentDateInRange() ) return false;
 
     return isValidInsuree(this.state.insuree, this.props.modulesManager);
     
@@ -231,10 +231,10 @@ class InsureeForm extends Component {
       const endDate = new Date(endDateStr);
 
      if (!startDateStr || isNaN(Date.parse(startDateStr))) {
-       return false;
+       return true;
      }
      if (!endDateStr || isNaN(Date.parse(endDateStr))) {
-       return false;
+       return true;
      }
 
       let result = currentDate >= startDate && currentDate <= endDate;

@@ -30,6 +30,7 @@ const FAMILY_HEAD_PROJECTION = (mm) => [
   "profession{id}",
   "marital",
   "cardIssued",
+  "currentVillage" + mm.getProjection("location.Location.FlatProjection"),
   "currentAddress",
   "typeOfId{code}",
   "passport",
@@ -40,9 +41,8 @@ const FAMILY_HEAD_PROJECTION = (mm) => [
   "statusReason{code,insureeStatusReason}",
   "email",
   "phone",
+  "healthFacility" + mm.getProjection("location.HealthFacilityPicker.projection"),
 ];
-// "healthFacility" + mm.getProjection("location.HealthFacilityPicker.projection"),
-// "currentVillage" + mm.getProjection("location.Location.FlatProjection"),
 
 const FAMILY_FULL_PROJECTION = (mm) => [
   "id",
@@ -55,9 +55,9 @@ const FAMILY_FULL_PROJECTION = (mm) => [
   "validityFrom",
   "validityTo",
   `headInsuree{${FAMILY_HEAD_PROJECTION(mm).join(",")}}`,
+  "location" + mm.getProjection("location.Location.FlatProjection"),
   "clientMutationId",
 ];
-// "location" + mm.getProjection("location.Location.FlatProjection"),
 
 export const FAMILY_PICKER_PROJECTION = ["id", "uuid", "headInsuree{id chfId uuid lastName otherNames}"];
 
@@ -80,6 +80,7 @@ const INSUREE_FULL_PROJECTION = (mm) => [
   "profession{id}",
   "marital",
   "cardIssued",
+  "currentVillage" + mm.getProjection("location.Location.FlatProjection"),
   "currentAddress",
   "typeOfId{code}",
   "passport",
@@ -91,9 +92,8 @@ const INSUREE_FULL_PROJECTION = (mm) => [
   "statusReason{code,insureeStatusReason}",
   "email",
   "phone",
+  "healthFacility" + mm.getProjection("location.HealthFacilityPicker.projection"),
 ];
-// "currentVillage" + mm.getProjection("location.Location.FlatProjection"),
-// "healthFacility" + mm.getProjection("location.HealthFacilityPicker.projection"),
 
 export const INSUREE_PICKER_PROJECTION = ["id", "uuid", "chfId", "lastName", "otherNames", "dob"];
 
@@ -183,8 +183,8 @@ export function fetchFamilySummaries(mm, filters) {
     "validityFrom",
     "validityTo",
     "headInsuree{id,uuid,chfId,lastName,otherNames,email,phone, dob}",
+    "location" + mm.getProjection("location.Location.FlatProjection"),
   ];
-  // "location" + mm.getProjection("location.Location.FlatProjection"),
   const payload = formatPageQueryWithCount("families", filters, projections);
   return graphql(payload, "INSUREE_FAMILIES");
 }
@@ -311,7 +311,6 @@ function formatInsureePhoto(photo) {
   }`;
 }
 
-// isActive:${!!insuree.isActive}
 export function formatInsureeGQL(mm, insuree) {
   return `
   ${insuree.uuid !== undefined && insuree.uuid !== null ? `uuid: "${insuree.uuid}"` : ""}
@@ -322,6 +321,7 @@ export function formatInsureeGQL(mm, insuree) {
   ${!!insuree.otherNames ? `otherNames: "${formatGQLString(insuree.otherNames)}"` : ""}
   ${!!insuree.gender && !!insuree.gender.code ? `genderId: "${insuree.gender.code}"` : ""}
   ${!!insuree.dob ? `dob: "${insuree.dob}"` : ""}
+  isActive:${!!insuree.isActive}
     head: ${!!insuree.head}
     ${!!insuree.marital ? `marital: "${insuree.marital}"` : ""}
     ${!!insuree.passport ? `passport: "${formatGQLString(insuree.passport)}"` : ""}

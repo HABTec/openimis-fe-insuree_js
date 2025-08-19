@@ -16,30 +16,7 @@ class InsureeFirstServicePointPanel extends FormPanel {
     const { classes, updateAttribute, readOnly, edited } = this.props;
     let isInsureeFirstServicePointRequired = this.props.modulesManager.getConf("fe-insuree", "insureeForm.isInsureeFirstServicePointRequired", false);
     return (
-      <Grid container>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography className={classes.title}>
-              <FormattedMessage module="insuree" id="insuree.InsureeFirstServicePointPanel.title" />
-            </Typography>
-            <Divider />
-            <Grid container item xs={12} className={classes.item}>
-              {readOnly && !edited.healthFacility ? (
-                <FormattedMessage module="insuree" id="insuree.noFSP" />
-              ) : (
-                <PublishedComponent
-                  pubRef="location.DetailedHealthFacility"
-                  value={edited?.healthFacility ?? null}
-                  readOnly={readOnly}
-                  required={isInsureeFirstServicePointRequired}
-                  onChange={(hf) => updateAttribute("healthFacility", hf)}
-                  ignoreLocation={true}
-                />
-              )}
-            </Grid>
-          </Paper>
-        </Grid>
-      </Grid>
+      <></>
     );
   }
 }

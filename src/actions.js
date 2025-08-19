@@ -59,7 +59,7 @@ const FAMILY_FULL_PROJECTION = (mm) => [
   "clientMutationId",
 ];
 
-export const FAMILY_PICKER_PROJECTION = ["id", "uuid", "headInsuree{id chfId uuid lastName otherNames}"];
+export const FAMILY_PICKER_PROJECTION = ["id", "uuid", "headInsuree{id chfId uuid lastName middleName otherNames}"];
 
 const INSUREE_FULL_PROJECTION = (mm) => [
   "id",
@@ -182,7 +182,7 @@ export function fetchFamilySummaries(mm, filters) {
     "confirmationNo",
     "validityFrom",
     "validityTo",
-    "headInsuree{id,uuid,chfId,lastName,otherNames,email,phone, dob}",
+    "headInsuree{id,uuid,chfId,lastName,middleName,otherNames,email,phone, dob}",
     "location" + mm.getProjection("location.Location.FlatProjection"),
   ];
   const payload = formatPageQueryWithCount("families", filters, projections);
@@ -321,13 +321,13 @@ export function formatInsureeGQL(mm, insuree) {
   ${!!insuree.otherNames ? `otherNames: "${formatGQLString(insuree.otherNames)}"` : ""}
   ${!!insuree.gender && !!insuree.gender.code ? `genderId: "${insuree.gender.code}"` : ""}
   ${!!insuree.dob ? `dob: "${insuree.dob}"` : ""}
-  isActive:${!!insuree.isActive}
     head: ${!!insuree.head}
     ${!!insuree.marital ? `marital: "${insuree.marital}"` : ""}
     ${!!insuree.passport ? `passport: "${formatGQLString(insuree.passport)}"` : ""}
     ${!!insuree.phone ? `phone: "${formatGQLString(insuree.phone)}"` : ""}
     ${!!insuree.email ? `email: "${formatGQLString(insuree.email)}"` : ""}
     ${!!insuree.currentAddress ? `currentAddress: "${formatGQLString(insuree.currentAddress)}"` : ""}
+    isActive:${!!insuree.isActive}
     ${
       !!insuree.currentVillage && !!insuree.currentVillage.id
       ? `currentVillageId: ${decodeId(insuree.currentVillage.id)}`

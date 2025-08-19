@@ -329,27 +329,7 @@ class FamilyFilter extends Component {
         />
         {this.familyHeadFilter()}
         {this.filterFamiliesOnMembers && this.familyMemberFilter()}
-        <ControlledField
-          module="insuree"
-          id="FamilyFilter.poverty"
-          field={
-            <Grid item xs={2} className={classes.item}>
-              <PublishedComponent
-                pubRef="insuree.FamilyPovertyStatusPicker"
-                value={this._filterValue("poverty")}
-                onChange={(v) =>
-                  onChangeFilters([
-                    {
-                      id: "poverty",
-                      value: v,
-                      filter: v === null ? null : `nullAsFalsePoverty: ${v}`,
-                    },
-                  ])
-                }
-              />
-            </Grid>
-          }
-        />
+    
         <ControlledField
           module="insuree"
           id="FamilyFilter.confirmationNo"

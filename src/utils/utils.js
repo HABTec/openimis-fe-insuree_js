@@ -3,7 +3,7 @@ import { INSUREE_ACTIVE_STRING } from "../constants";
 
 export function insureeLabel(insuree) {
   if (!insuree) return "";
-  return `${_.compact([insuree.lastName, insuree.otherNames]).join(" ")}${
+  return `${_.compact([insuree.otherNames ,insuree?.middleName, insuree.lastName]).join(" ")}${
     !!insuree.chfId ? ` (${insuree.chfId})` : ""
   }`;
 }

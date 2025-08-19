@@ -115,6 +115,7 @@ class FamilySearcher extends Component {
     var h = [
       "insuree.familySummaries.insuranceNo",
       this.renderLastNameFirst ? "insuree.familySummaries.lastName" : "insuree.familySummaries.otherNames",
+      "insuree.familySummaries.middleName",
       !this.renderLastNameFirst ? "insuree.familySummaries.lastName" : "insuree.familySummaries.otherNames",
       "insuree.familySummaries.email",
       "insuree.familySummaries.phone",

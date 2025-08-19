@@ -199,19 +199,6 @@ class FamilyMasterPanel extends FormPanel {
               onChange={(v) => this.updateAttribute("address", v)}
             />
           </Grid>
-          <Grid item xs={1} className={classes.item}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color="primary"
-                  checked={!!edited && !!edited.poverty}
-                  disabled={readOnly}
-                  onChange={(e) => this.updateAttribute("poverty", !edited.poverty)}
-                />
-              }
-              label={formatMessage(intl, "insuree", "Family.poverty")}
-            />
-          </Grid>
           <Divider />
         </Grid>
         <Contributions

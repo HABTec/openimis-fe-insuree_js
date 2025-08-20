@@ -117,20 +117,13 @@ class FamilySearcher extends Component {
       this.renderLastNameFirst ? "insuree.familySummaries.lastName" : "insuree.familySummaries.otherNames",
       "insuree.familySummaries.middleName",
       !this.renderLastNameFirst ? "insuree.familySummaries.lastName" : "insuree.familySummaries.otherNames",
-      "insuree.familySummaries.email",
+      
       "insuree.familySummaries.phone",
       "insuree.familySummaries.dob",
     ];
     for (var i = 0; i < this.locationLevels; i++) {
       h.push(`location.locationType.${i}`);
     }
-    h.push(
-      "insuree.familySummaries.poverty",
-      "insuree.familySummaries.confirmationNo",
-      filters?.showHistory?.value ? "insuree.familySummaries.validityFrom" : null,
-      filters?.showHistory?.value ? "insuree.familySummaries.validityTo" : null,
-      "insuree.familySummaries.openNewTab",
-    );
     if (!!this.props.rights.includes(RIGHT_FAMILY_DELETE)) {
       h.push("insuree.familySummaries.delete");
     }
@@ -141,9 +134,8 @@ class FamilySearcher extends Component {
     var results = [
       ["headInsuree__chfId", true],
       this.renderLastNameFirst ? ["headInsuree__lastName", true] : ["headInsuree__otherNames", true],
+      ["headInsuree__middleName", true],
       !this.renderLastNameFirst ? ["headInsuree__lastName", true] : ["headInsuree__otherNames", true],
-      ["headInsuree__email", true],
-      ["headInsuree__phone", true],
       ["headInsuree__dob", true],
     ];
     _.times(this.locationLevels, () => results.push(null));
@@ -183,6 +175,17 @@ class FamilySearcher extends Component {
       );
     });
   };
+  getAge = (dob) => {
+    if (!dob) return "";
+    const today = new Date();
+    const birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
 
   itemFormatters = (filters) => {
     var formatters = [
@@ -191,40 +194,20 @@ class FamilySearcher extends Component {
         (family.headInsuree && this.renderLastNameFirst
           ? family.headInsuree.lastName
           : family.headInsuree.otherNames) || "",
+      (family) => family.headInsuree.middleName,
       (family) =>
         (family.headInsuree && !this.renderLastNameFirst
           ? family.headInsuree.lastName
           : family.headInsuree.otherNames) || "",
-      (family) => (!!family.headInsuree ? family.headInsuree.email : ""),
-      (family) => (!!family.headInsuree ? family.headInsuree.phone : ""),
       (family) =>
         !!family.headInsuree
-          ? formatDateFromISO(this.props.modulesManager, this.props.intl, family.headInsuree.dob)
+          ? this.getAge(formatDateFromISO(this.props.modulesManager, this.props.intl, family.headInsuree.dob))
           : "",
     ];
     for (var i = 0; i < this.locationLevels; i++) {
-      // need a fixed variable to refer to as parentLocation argument
       let j = i + 0;
       formatters.push((family) => this.parentLocation(family.location, j));
     }
-    formatters.push(
-      (family) => <Checkbox color="primary" checked={family.poverty} readOnly />,
-      (family) => family.confirmationNo,
-      filters?.showHistory?.value
-        ? (family) => formatDateFromISO(this.props.modulesManager, this.props.intl, family.validityFrom)
-        : null,
-      filters?.showHistory?.value
-        ? (family) => formatDateFromISO(this.props.modulesManager, this.props.intl, family.validityTo)
-        : null,
-      (family) => (
-        <Tooltip title={formatMessage(this.props.intl, "insuree", "familySummaries.openNewTabButton.tooltip")}>
-          <IconButton onClick={(e) => !family.clientMutationId && this.props.onDoubleClick(family, true)}>
-            {" "}
-            <TabIcon />
-          </IconButton>
-        </Tooltip>
-      ),
-    );
     if (!!this.props.rights.includes(RIGHT_FAMILY_DELETE)) {
       formatters.push(this.deleteFamilyAction);
     }

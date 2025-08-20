@@ -245,9 +245,9 @@ class InsureeMasterPanel extends FormPanel {
               )}
               <Grid item xs={8}>
                 <Grid container>
-                  <Grid item xs={3} className={classes.item}>
+                  <Grid item xs={8} className={classes.item}>
                     <PublishedComponent
-                      pubRef="core.DatePicker"
+                      pubRef="core.AgePicker"
                       value={!!edited ? edited.dob : null}
                       module="insuree"
                       label="Insuree.dob"
@@ -256,6 +256,7 @@ class InsureeMasterPanel extends FormPanel {
                       maxDate={new Date()}
                       onChange={(v) => this.updateAttribute("dob", v)}
                     />
+                   
                   </Grid>
                   <Grid item xs={3} className={classes.item}>
                     <FormControl >
@@ -263,7 +264,7 @@ class InsureeMasterPanel extends FormPanel {
                       <Select
                         labelId="demo-simple-select-label"
                         readOnly={readOnly}
-                        value={!!edited && !!edited.disabilityStatus ? edited.disabilityStatus?.toLowerCase() : ""}
+                        value={!!edited && !!edited.disabilityStatus ? edited.disabilityStatus?.toLowerCase() : disabilityStatusOptions[0]}
                         onChange={(v) => {
 
                           this.updateAttribute("disabilityStatus", v.target.value)

@@ -32,6 +32,7 @@
   "insuree.Insuree.names": "Name",
   "insuree.Insuree.gender": "Gender",
   "insuree.Insuree.dob": "Birth Date",
+  "insuree.Insuree.age": "Age",
   "insuree.Insuree.dobFrom": "Birth Date From",
   "insuree.Insuree.dobTo": "Birth Date To",
   "insuree.Insuree.phone": "Phone",

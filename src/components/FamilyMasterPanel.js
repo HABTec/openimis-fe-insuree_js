@@ -161,7 +161,7 @@ class FamilyMasterPanel extends FormPanel {
             />
           </Grid>
           {!!overview && this.headSummary()}
-          <Grid item xs={2} className={classes.item}>
+          {/* <Grid item xs={2} className={classes.item}>
             <PublishedComponent
               pubRef="insuree.FamilyTypePicker"
               withNull={false}
@@ -198,7 +198,7 @@ class FamilyMasterPanel extends FormPanel {
               value={!edited ? "" : edited.address}
               onChange={(v) => this.updateAttribute("address", v)}
             />
-          </Grid>
+          </Grid> */}
           <Divider />
         </Grid>
         <Contributions

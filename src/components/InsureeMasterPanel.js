@@ -481,12 +481,12 @@ class InsureeMasterPanel extends FormPanel {
                 contributionKey={INSUREE_INSUREE_CONTRIBUTION_KEY}
               />
               <Grid item xs={12} className={classes.item}>
-                {canRegister ?   !canRegister?.startDate && !canRegister?.endDate ? (
-                 <Alert variant="outlined" severity="warning">
-                   Registration Start and end dates should be configured.
-                 </Alert>
+                {canRegister ? !canRegister?.startDate && !canRegister?.endDate ? (
+                  <Alert variant="outlined" severity="warning">
+                    Registration Start and end dates should be configured.
+                  </Alert>
                 ) : (
-                   canRegister?.allowed ? "" : (
+                  canRegister?.allowed ? "" : (
                     <Alert variant="outlined" severity="error">
                       The registration period has now ended. It was open from {canRegister?.startDate} to {canRegister?.endDate}.
                     </Alert>

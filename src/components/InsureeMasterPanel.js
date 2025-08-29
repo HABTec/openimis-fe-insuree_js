@@ -256,28 +256,34 @@ class InsureeMasterPanel extends FormPanel {
                       maxDate={new Date()}
                       onChange={(v) => this.updateAttribute("dob", v)}
                     />
-                   
-                  </Grid>
-                  <Grid item xs={3} className={classes.item}>
-                    <FormControl >
-                      <InputLabel id="demo-simple-select-label">Disability Status </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        readOnly={readOnly}
-                        value={!!edited && !!edited.disabilityStatus ? edited.disabilityStatus?.toLowerCase() : disabilityStatusOptions[0]}
-                        onChange={(v) => {
 
-                          this.updateAttribute("disabilityStatus", v.target.value)
-                        }}
-                      >
-                        {disabilityStatusOptions.map((v) => (
-                          <MenuItem key={v} value={v}>
-                            {formatMessage(this.props.intl, "insuree", `DisabilityType.${v}`)}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
                   </Grid>
+                  {!!edited &&
+                    !!edited.family &&
+                    !!edited.family.headInsuree &&
+                    edited.family.headInsuree.id !== edited.id &&
+                    <Grid item xs={3} className={classes.item}>
+                      <FormControl >
+                        <InputLabel id="demo-simple-select-label">Disability Status </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          readOnly={readOnly}
+                          value={!!edited && !!edited.disabilityStatus ? edited.disabilityStatus?.toLowerCase() : disabilityStatusOptions[0]}
+                          onChange={(v) => {
+
+                            this.updateAttribute("disabilityStatus", v.target.value)
+                          }}
+                        >
+                          {disabilityStatusOptions.map((v) => (
+                            <MenuItem key={v} value={v}>
+                              {formatMessage(this.props.intl, "insuree", `DisabilityType.${v}`)}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                  }
+
                   <Grid item xs={3} className={classes.item}>
                     <PublishedComponent
                       pubRef="insuree.InsureeGenderPicker"

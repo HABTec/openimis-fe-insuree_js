@@ -110,6 +110,24 @@ class InsureeMasterPanel extends FormPanel {
     </Grid>
   );
 
+  validateId = (edited, intl = this.props.intl) => {
+    if (!!edited && !!edited.typeOfId) {
+      if (edited.typeOfId.code == "N") {
+        if (edited.passport?.length < 12 || edited.passport?.length > 12 || isNaN(Number(edited.passport))) {
+          return formatMessage(intl, "insuree", "Insuree.InvalidNationalId")
+        }
+      }
+      else if (edited.typeOfId.code == "P") {
+        if (edited.passport?.length < 9 || edited.passport?.length > 9 || (edited.passport?.substr(0, 2)?.toUpperCase() != "EP") || isNaN(Number(edited.passport?.substr(2, 7)))) {
+          return formatMessage(intl, "insuree", "Insuree.InvalidPassport")
+        }
+      }
+      else {
+        return null;
+      }
+    }
+  }
+
   renderMiddleNameField = (edited, classes, readOnly) => (
     <Grid item xs={2} className={classes.item}>
       <TextInput
@@ -375,6 +393,7 @@ class InsureeMasterPanel extends FormPanel {
                       module="insuree"
                       label="Insuree.passport"
                       readOnly={readOnly}
+                      error={this.validateId(edited)}
                       value={!!edited && !!edited.passport ? edited.passport : ""}
                       onChange={(v) => this.updateAttribute("passport", !!v ? v : null)}
                     />

@@ -147,17 +147,6 @@ class FamilyFilter extends Component {
             </Grid>
           }
         />
-        {this.renderLastNameFirst ? (
-          <>
-            {this.renderLastNameField(anchor, classes)}
-            {this.renderGivenNameField(anchor, classes)}
-          </>
-        ) : (
-          <>
-            {this.renderGivenNameField(anchor, classes)}
-            {this.renderLastNameField(anchor, classes)}
-          </>
-        )}
         <ControlledField
           module="insuree"
           id={`InsureeFilter.${anchor}.gender`}
@@ -204,29 +193,7 @@ class FamilyFilter extends Component {
             </Grid>
           }
         />
-        <ControlledField
-          module="insuree"
-          id={`FamilyFilter.${anchor}.email`}
-          field={
-            <Grid item xs={2} className={classes.item}>
-              <TextInput
-                module="insuree"
-                label={`Family.${anchor}.email`}
-                name={`${anchor}_email`}
-                value={this._filterTextFieldValue(`${anchor}.email`)}
-                onChange={(v) =>
-                  this.debouncedOnChangeFilters([
-                    {
-                      id: `${anchor}.email`,
-                      value: v,
-                      filter: !!v ? `${anchor}_Email_Icontains: "${v}"` : null,
-                    },
-                  ])
-                }
-              />
-            </Grid>
-          }
-        />
+     
         <ControlledField
           module="insuree"
           id={`FamilyFilter.${anchor}.dob`}
@@ -330,51 +297,6 @@ class FamilyFilter extends Component {
         {this.familyHeadFilter()}
         {this.filterFamiliesOnMembers && this.familyMemberFilter()}
     
-        <ControlledField
-          module="insuree"
-          id="FamilyFilter.confirmationNo"
-          field={
-            <Grid item xs={3} className={classes.item}>
-              <TextInput
-                module="insuree"
-                label="Family.confirmationNo"
-                name="confirmationNo"
-                value={this._filterTextFieldValue("confirmationNo")}
-                onChange={(v) =>
-                  this.debouncedOnChangeFilters([
-                    {
-                      id: "confirmationNo",
-                      value: v,
-                      filter: `confirmationNo_Istartswith: "${v}"`,
-                    },
-                  ])
-                }
-              />
-            </Grid>
-          }
-        />
-        <ControlledField
-          module="insuree"
-          id="PolicyFilter.officer"
-          field={
-            <Grid item xs={3} className={classes.item}>
-              <PublishedComponent
-                pubRef="policy.PolicyOfficerPicker"
-                withNull={true}
-                value={this._filterValue("officer")}
-                onChange={(v) =>
-                  onChangeFilters([
-                    {
-                      id: "officer",
-                      value: v,
-                      filter: v === null ? null : `officer: "${v.uuid}"`,
-                    },
-                  ])
-                }
-              />
-            </Grid>
-          }
-        />
         {!!filterPaneContributionsKey && (
           <Contributions
             filters={filters}

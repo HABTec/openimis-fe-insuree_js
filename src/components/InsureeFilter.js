@@ -164,17 +164,6 @@ class InsureeFilter extends Component {
             </Grid>
           }
         />
-        {this.renderLastNameFirst ? (
-          <>
-            {this.renderLastNameField()}
-            {this.renderGivenNameField()}
-          </>
-        ) : (
-          <>
-            {this.renderGivenNameField()}
-            {this.renderLastNameField()}
-          </>
-        )}
         <Grid item xs={3}>
           <Grid container>
             <ControlledField
@@ -222,29 +211,6 @@ class InsureeFilter extends Component {
             />
           </Grid>
         </Grid>
-        <ControlledField
-          module="insuree"
-          id="InsureeFilter.email"
-          field={
-            <Grid item xs={3} className={classes.item}>
-              <TextInput
-                module="insuree"
-                label="Insuree.email"
-                name="email"
-                value={this._filterTextFieldValue("email")}
-                onChange={(v) =>
-                  this.debouncedOnChangeFilter([
-                    {
-                      id: "email",
-                      value: v,
-                      filter: `email_Icontains: "${v}"`,
-                    },
-                  ])
-                }
-              />
-            </Grid>
-          }
-        />
         <ControlledField
           module="insuree"
           id="InsureeFilter.phone"
@@ -354,24 +320,6 @@ class InsureeFilter extends Component {
                         },
                       ])
                     }
-                  />
-                </Grid>
-              }
-            />
-            <ControlledField
-              module="insuree"
-              id="InsureeFilter.showHistory"
-              field={
-                <Grid item xs={6} className={classes.item}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        color="primary"
-                        checked={!!this._filterValue("showHistory")}
-                        onChange={(event) => this._onChangeCheckbox("showHistory", event.target.checked)}
-                      />
-                    }
-                    label={formatMessage(intl, "insuree", "InsureeFilter.showHistory")}
                   />
                 </Grid>
               }

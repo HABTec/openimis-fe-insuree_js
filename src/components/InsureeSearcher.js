@@ -127,6 +127,7 @@ class InsureeSearcher extends Component {
     var h = [
       "insuree.insureeSummaries.insuranceNo",
       this.renderLastNameFirst ? "insuree.insureeSummaries.lastName" : "insuree.insureeSummaries.otherNames",
+       "insuree.insureeSummaries.middleName" ,
       !this.renderLastNameFirst ? "insuree.insureeSummaries.lastName" : "insuree.insureeSummaries.otherNames",
       "insuree.insureeSummaries.maritalStatus",
       "insuree.insureeSummaries.gender",
@@ -200,6 +201,7 @@ class InsureeSearcher extends Component {
     var formatters = [
       (insuree) => insuree.chfId,
       (insuree) => (this.renderLastNameFirst ? insuree.lastName : insuree.otherNames) || "",
+      (insuree) =>  insuree.middleName || "",
       (insuree) => (!this.renderLastNameFirst ? insuree.lastName : insuree.otherNames) || "",
       (insuree) => (
             <PublishedComponent

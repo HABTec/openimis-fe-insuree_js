@@ -164,53 +164,7 @@ class InsureeFilter extends Component {
             </Grid>
           }
         />
-        <Grid item xs={3}>
-          <Grid container>
-            <ControlledField
-              module="insuree"
-              id="InsureeFilter.gender"
-              field={
-                <Grid item xs={6} className={classes.item}>
-                  <PublishedComponent
-                    pubRef="insuree.InsureeGenderPicker"
-                    withNull={true}
-                    value={this._filterValue("gender")}
-                    onChange={(v) =>
-                      onChangeFilters([
-                        {
-                          id: "gender",
-                          value: v,
-                          filter: !!v ? `gender_Code: "${v}"` : null,
-                        },
-                      ])
-                    }
-                  />
-                </Grid>
-              }
-            />
-            <ControlledField
-              module="insuree"
-              id="InsureeFilter.maritalStatus"
-              field={
-                <Grid item xs={6} className={classes.item}>
-                  <PublishedComponent
-                    pubRef="insuree.InsureeMaritalStatusPicker"
-                    value={this._filterValue("maritalStatus")}
-                    onChange={(v) =>
-                      onChangeFilters([
-                        {
-                          id: "maritalStatus",
-                          value: v,
-                          filter: `marital: "${v}"`,
-                        },
-                      ])
-                    }
-                  />
-                </Grid>
-              }
-            />
-          </Grid>
-        </Grid>
+      
         <ControlledField
           module="insuree"
           id="InsureeFilter.phone"
@@ -255,52 +209,7 @@ class InsureeFilter extends Component {
             </Grid>
           }
         />
-        <ControlledField
-          module="insuree"
-          id="InsureeFilter.dob"
-          field={
-            <Grid item xs={3}>
-              <Grid container>
-                <Grid item xs={6} className={classes.item}>
-                  <PublishedComponent
-                    pubRef="core.DatePicker"
-                    value={this._filterValue("dobFrom")}
-                    module="insuree"
-                    label="Insuree.dobFrom"
-                    {...(filters.dobTo ? { maxDate: filters.dobTo.value } : null)}
-                    onChange={(d) =>
-                      onChangeFilters([
-                        {
-                          id: "dobFrom",
-                          value: d,
-                          filter: `dob_Gte: "${d}"`,
-                        },
-                      ])
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6} className={classes.item}>
-                  <PublishedComponent
-                    pubRef="core.DatePicker"
-                    value={this._filterValue("dobTo")}
-                    module="insuree"
-                    label="Insuree.dobTo"
-                    {...(filters.dobFrom ? { minDate: filters.dobFrom.value } : null)}
-                    onChange={(d) =>
-                      onChangeFilters([
-                        {
-                          id: "dobTo",
-                          value: d,
-                          filter: `dob_Lte: "${d}"`,
-                        },
-                      ])
-                    }
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          }
-        />
+        
         <Grid item xs={3}>
           <Grid container>
             <ControlledField

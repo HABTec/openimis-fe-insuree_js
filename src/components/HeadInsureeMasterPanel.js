@@ -44,6 +44,7 @@ class HeadInsureeMasterPanel extends Component {
           onEditedChanged={this.onEditedChanged}
           title="insuree.HeadInsureeMasterPanel.title"
           actions={actions}
+          canRegister={this.props.canRegister}
         />
         <Contributions
           {...this.props}

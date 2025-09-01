@@ -152,6 +152,28 @@ class FamilyForm extends Component {
   onActionToConfirm = (title, message, confirmedAction) => {
     this.setState({ confirmedAction }, this.props.coreConfirm(title, message));
   };
+  isCurrentDateInRange() {
+    const {
+    product
+    } = this.props;
+      const currentDate = new Date();
+      let startDateStr = product?.enrolmentPeriodStartDate
+      let endDateStr = product?.enrolmentPeriodEndDate
+
+
+      const startDate = new Date(startDateStr);
+      const endDate = new Date(endDateStr);
+
+     if (!startDateStr || isNaN(Date.parse(startDateStr))) {
+       return true;
+     }
+     if (!endDateStr || isNaN(Date.parse(endDateStr))) {
+       return true;
+     }
+
+      let result = currentDate >= startDate && currentDate <= endDate;
+      return result;
+    }
 
   render() {
     const {
@@ -170,6 +192,7 @@ class FamilyForm extends Component {
       add,
       save,
       back,
+      product
     } = this.props;
     const { family, newFamily, isSaved } = this.state;
     if (!rights.includes(RIGHT_FAMILY)) return null;
@@ -223,6 +246,11 @@ class FamilyForm extends Component {
             save={!!save ? this._save : null}
             onActionToConfirm={this.onActionToConfirm}
             openDirty={save}
+            canRegister={{
+                allowed: this.isCurrentDateInRange(),
+                startDate: product?.enrolmentPeriodStartDate,
+                endDate: product?.enrolmentPeriodEndDate,
+              }}
           />
         )}
       </div>
@@ -232,6 +260,7 @@ class FamilyForm extends Component {
 
 const mapStateToProps = (state, props) => ({
   rights: !!state.core && !!state.core.user && !!state.core.user.i_user ? state.core.user.i_user.rights : [],
+  product: !!state.core && !!state.core.userProduct ? state.core.userProduct[0] : null,
   fetchingFamily: state.insuree.fetchingFamily,
   errorFamily: state.insuree.errorFamily,
   fetchedFamily: state.insuree.fetchedFamily,

@@ -128,7 +128,7 @@ class FamilyFilter extends Component {
           module="insuree"
           id={`FamilyFilter.${anchor}.chfId`}
           field={
-            <Grid item xs={1} className={classes.item}>
+            <Grid item xs={3} className={classes.item}>
               <TextInput
                 module="insuree"
                 label={`Family.${anchor}.chfId`}
@@ -147,34 +147,12 @@ class FamilyFilter extends Component {
             </Grid>
           }
         />
-        <ControlledField
-          module="insuree"
-          id={`InsureeFilter.${anchor}.gender`}
-          field={
-            <Grid item xs={1} className={classes.item}>
-              <PublishedComponent
-                pubRef="insuree.InsureeGenderPicker"
-                withNull={true}
-                label={`Family.${anchor}.gender`}
-                value={this._filterValue(`${anchor}.gender`)}
-                onChange={(v) =>
-                  onChangeFilters([
-                    {
-                      id: `${anchor}.gender`,
-                      value: v,
-                      filter: !!v ? `${anchor}_Gender_Code: "${v}"` : null,
-                    },
-                  ])
-                }
-              />
-            </Grid>
-          }
-        />
+      
         <ControlledField
           module="insuree"
           id={`FamilyFilter.${anchor}.phone`}
           field={
-            <Grid item xs={2} className={classes.item}>
+            <Grid item xs={3} className={classes.item}>
               <TextInput
                 module="insuree"
                 label={`Family.${anchor}.phone`}
@@ -194,50 +172,6 @@ class FamilyFilter extends Component {
           }
         />
      
-        <ControlledField
-          module="insuree"
-          id={`FamilyFilter.${anchor}.dob`}
-          field={
-            <Grid item xs={2}>
-              <Grid container>
-                <Grid item xs={6} className={classes.item}>
-                  <PublishedComponent
-                    pubRef="core.DatePicker"
-                    value={this._filterValue(`${anchor}.dobFrom`)}
-                    module="insuree"
-                    label={`Family.${anchor}.dobFrom`}
-                    onChange={(d) =>
-                      onChangeFilters([
-                        {
-                          id: `${anchor}.dobFrom`,
-                          value: d,
-                          filter: !!d ? `${anchor}_Dob_Gte: "${d}"` : null,
-                        },
-                      ])
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6} className={classes.item}>
-                  <PublishedComponent
-                    pubRef="core.DatePicker"
-                    value={this._filterValue(`${anchor}.dobTo`)}
-                    module="insuree"
-                    label={`Family.${anchor}.dobTo`}
-                    onChange={(d) =>
-                      onChangeFilters([
-                        {
-                          id: `${anchor}.dobTo`,
-                          value: d,
-                          filter: !!d ? `${anchor}_Dob_Lte: "${d}"` : null,
-                        },
-                      ])
-                    }
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          }
-        />
       </Fragment>
     );
   };

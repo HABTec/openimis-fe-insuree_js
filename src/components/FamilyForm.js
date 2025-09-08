@@ -136,6 +136,8 @@ class FamilyForm extends Component {
   canSave = () => {
     if (!this.state.family.location) return false;
     if (this.state.family.validityTo) return false;
+    if (!this.isCurrentDateInRange() ) return false;
+
     if (this.state.family.confirmationType?.isConfirmationNumberRequired && !this.state.family.confirmationNo)
       return false;
     return this.state.family.headInsuree && isValidInsuree(this.state.family.headInsuree, this.props.modulesManager);

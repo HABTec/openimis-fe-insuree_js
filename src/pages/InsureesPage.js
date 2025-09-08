@@ -62,9 +62,6 @@ class InsureesPage extends Component {
         {rights.includes(RIGHT_INSUREE_ADD) &&
           withTooltip(
             <div className={classes.fab}>
-              <Fab color="primary" onClick={this.onAdd}>
-                <AddIcon />
-              </Fab>
             </div>,
             formatMessage(intl, "insuree", "addNewInsureeTooltip"),
           )}

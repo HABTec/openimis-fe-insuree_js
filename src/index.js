@@ -38,6 +38,8 @@ import InsureeAddress from "./components/InsureeAddress";
 import FamilyDisplayPanel from "./components/FamilyDisplayPanel";
 import { familyLabel } from "./utils/utils";
 import messages_en from "./translations/en.json";
+import messages_am from "./translations/am.json";
+import messages_om from "./translations/om.json";
 import reducer from "./reducer";
 import { FAMILY_PICKER_PROJECTION, INSUREE_PICKER_PROJECTION } from "./actions";
 import { decodeId } from "@openimis/fe-core";
@@ -55,7 +57,7 @@ const ROUTE_INSUREE_INSUREES = "insuree/insurees";
 const ROUTE_INSUREE_INSUREE = "insuree/insurees/insuree";
 
 const DEFAULT_CONFIG = {
-  "translations": [{ key: "en", messages: messages_en }],
+  "translations": [{ key: "en", messages: messages_en },{ key: "am", messages: messages_am },{ key: "om", messages: messages_om }],
   "reducers": [{ key: "insuree", reducer }],
   "reports": [
     {

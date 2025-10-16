@@ -118,7 +118,6 @@ class FamilySearcher extends Component {
       "insuree.familySummaries.middleName",
       !this.renderLastNameFirst ? "insuree.familySummaries.lastName" : "insuree.familySummaries.otherNames",
       
-      "insuree.familySummaries.phone",
       "insuree.familySummaries.dob",
     ];
     for (var i = 0; i < this.locationLevels; i++) {

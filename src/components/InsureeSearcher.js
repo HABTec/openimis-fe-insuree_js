@@ -127,7 +127,7 @@ class InsureeSearcher extends Component {
     var h = [
       "insuree.insureeSummaries.insuranceNo",
       this.renderLastNameFirst ? "insuree.insureeSummaries.lastName" : "insuree.insureeSummaries.otherNames",
-       "insuree.insureeSummaries.middleName" ,
+       "insuree.InsureeSummaries.middleName" ,
       !this.renderLastNameFirst ? "insuree.insureeSummaries.lastName" : "insuree.insureeSummaries.otherNames",
       "insuree.insureeSummaries.maritalStatus",
       "insuree.insureeSummaries.gender",

@@ -131,7 +131,6 @@ class InsureeSearcher extends Component {
       !this.renderLastNameFirst ? "insuree.insureeSummaries.lastName" : "insuree.insureeSummaries.otherNames",
       "insuree.insureeSummaries.maritalStatus",
       "insuree.insureeSummaries.gender",
-      "insuree.insureeSummaries.email",
       "insuree.insureeSummaries.phone",
       "insuree.insureeSummaries.dob",
       ...Array.from(Array(this.locationLevels)).map((_, i) => (`location.locationType.${i}`)),

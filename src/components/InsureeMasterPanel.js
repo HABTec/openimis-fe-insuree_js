@@ -128,6 +128,21 @@ class InsureeMasterPanel extends FormPanel {
     }
   }
 
+  validatePhoneNo = (edited, intl = this.props.intl) => {
+    const pattern = /^(?:07|09)\d{8}$/;
+    if (!!edited && !!edited.phone) {
+      if (edited.phone == "" || edited.phone == null) {
+        return '';
+      }
+      else if (!pattern.test(String(edited.phone))) {
+        return formatMessage(this.props.intl, "contribution", "InvalidPhoneNumber")
+      }
+      else {
+        return '';
+      }
+    }
+  }
+
   renderMiddleNameField = (edited, classes, readOnly) => (
     <Grid item xs={2} className={classes.item}>
       <TextInput
@@ -350,6 +365,7 @@ class InsureeMasterPanel extends FormPanel {
                     <TextInput
                       module="insuree"
                       label="Insuree.phone"
+                      error={this.validatePhoneNo(edited)}
                       readOnly={readOnly}
                       value={!!edited && !!edited.phone ? edited.phone : ""}
                       onChange={(v) => this.updateAttribute("phone", v)}

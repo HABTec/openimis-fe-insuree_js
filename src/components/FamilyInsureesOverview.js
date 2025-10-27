@@ -176,6 +176,7 @@ class FamilyInsureesOverview extends PagedDataHandler {
   headers = [
     "Insuree.chfId",
     this.renderLastNameFirst ? "Insuree.lastName" : "Insuree.otherNames",
+    "Insuree.middleNames",
     !this.renderLastNameFirst ? "Insuree.lastName" : "Insuree.otherNames",
     "Insuree.gender",
     "Insuree.dob",
@@ -302,6 +303,7 @@ class FamilyInsureesOverview extends PagedDataHandler {
   formatters = [
     (i) => this.adornedChfId(i),
     (i) => (this.renderLastNameFirst ? i.lastName : i.otherNames) || "",
+    (i) => i.middleName || "",
     (i) => (!this.renderLastNameFirst ? i.lastName : i.otherNames) || "",
     (i) =>
       i.gender && i.gender.code ? formatMessage(this.props.intl, "insuree", `InsureeGender.${i.gender.code}`) : "",

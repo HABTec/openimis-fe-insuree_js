@@ -288,6 +288,7 @@ export function fetchInsureeSummaries(mm, filters, ignoreLocation = false) {
     "validityTo",
     "chfId",
     "otherNames",
+    "middleName",
     "lastName",
     "phone",
     "gender{code}",

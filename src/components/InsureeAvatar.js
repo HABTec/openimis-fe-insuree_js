@@ -69,32 +69,7 @@ const InsureeAvatar = (props) => {
           />
         </IconButton>
       </div>
-      {withMeta && (
-        <Grid container direction="column" item>
-          <Grid item className={classes.item}>
-            <PublishedComponent
-              pubRef="core.DatePicker"
-              value={photo?.date}
-              module="insuree"
-              label="Insuree.photoDate"
-              readOnly={readOnly}
-              required={isRequired}
-              onChange={(date) => onChange({ ...photo, date })}
-            />
-          </Grid>
-          <Grid item className={classes.item}>
-            <PublishedComponent
-              pubRef="insuree.InsureeOfficerPicker"
-              value={photo?.officerId}
-              module="insuree"
-              label={formatMessage("Insuree.photoOfficer")}
-              readOnly={readOnly}
-              required={isRequired}
-              onChange={(v) => onChange({ ...photo, officerId: v?.id })}
-            />
-          </Grid>
-        </Grid>
-      )}
+      
     </Grid>
   );
 };

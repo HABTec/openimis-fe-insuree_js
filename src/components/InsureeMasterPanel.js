@@ -197,6 +197,7 @@ class InsureeMasterPanel extends FormPanel {
                         <PublishedComponent
                           pubRef="insuree.RelationPicker"
                           withNull={true}
+                          required
                           nullLabel={formatMessage(this.props.intl, "insuree", `Relation.none`)}
                           readOnly={readOnly}
                           value={!!edited && !!edited.relationship ? edited.relationship.id : ""}

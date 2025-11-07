@@ -421,46 +421,7 @@ class InsureeMasterPanel extends FormPanel {
                       onChange={(v) => this.updateAttribute("passport", !!v ? v : null)}
                     />
                   </Grid>
-                  <Grid item xs={3} className={classes.item}>
-                    <PublishedComponent
-                      pubRef="insuree.InsureeStatusPicker"
-                      label="Insuree.status"
-                      value={edited?.status}
-                      withNull={false}
-                      module="insuree"
-                      readOnly={!edited?.uuid || readOnly}
-                      onChange={(v) => this.updateAttributes({ "status": v, "statusReason": null })}
-                      required={this.isInsureeStatusRequired}
-                    />
-                  </Grid>
-                  {!!edited?.status && edited?.status !== INSUREE_ACTIVE_STRING && (
-                    <Grid item xs={3} className={classes.item}>
-                      <PublishedComponent
-                        pubRef="core.DatePicker"
-                        label="Insuree.statusDate"
-                        value={edited?.statusDate}
-                        module="insuree"
-                        readOnly={readOnly}
-                        required={true}
-                        onChange={(v) => this.updateAttribute("statusDate", v)}
-                      />
-                    </Grid>
-                  )}
-                  {!!edited?.status && edited?.status !== INSUREE_ACTIVE_STRING && (
-                    <Grid item xs={3} className={classes.item}>
-                      <PublishedComponent
-                        pubRef="insuree.InsureeStatusReasonPicker"
-                        label="Insuree.statusReason"
-                        value={edited?.statusReason}
-                        module="insuree"
-                        readOnly={readOnly}
-                        withNull={false}
-                        statusType={edited.status}
-                        required={true}
-                        onChange={(v) => this.updateAttribute("statusReason", v)}
-                      />
-                    </Grid>
-                  )}
+                  
                   {!!edited &&
                     !!edited.family &&
                     !!edited.family.headInsuree &&

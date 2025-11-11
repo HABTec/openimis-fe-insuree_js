@@ -233,6 +233,24 @@ class InsureeFilter extends Component {
                 </Grid>
               }
             />
+             <ControlledField
+              module="insuree"
+              id="InsureeFilter.showHistory"
+              field={
+                <Grid item xs={6} className={classes.item}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        color="primary"
+                        checked={!!this._filterValue("showHistory")}
+                        onChange={(event) => this._onChangeCheckbox("showHistory", event.target.checked)}
+                      />
+                    }
+                    label={formatMessage(intl, "insuree", "InsureeFilter.showHistory")}
+                  />
+                </Grid>
+              }
+            />
           </Grid>
         </Grid>
         <Contributions

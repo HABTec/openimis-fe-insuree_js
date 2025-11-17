@@ -218,7 +218,6 @@ class InsureeSearcher extends Component {
               value={!!insuree.gender ? insuree.gender.code : null}
             />
           ),
-      (insuree) => insuree.email,
       (insuree) => insuree.phone,
       (insuree) => formatDateFromISO(this.props.modulesManager, this.props.intl, insuree.dob),
     ];

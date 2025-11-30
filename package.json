@@ -43,6 +43,11 @@
   "files": [
     "dist"
   ],
+  "overrides": {
+  "fast-png": "5.0.4",
+  "iobuffer": "5.3.2",
+  "react-error-overlay": "6.0.9"
+},
   "dependencies": {
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",

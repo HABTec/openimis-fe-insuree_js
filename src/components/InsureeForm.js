@@ -71,7 +71,9 @@ class InsureeForm extends Component {
 
   back = (e) => {
     const { modulesManager, history, family_uuid, insuree_uuid } = this.props;
-    if (family_uuid) {
+    if (history.length > 2){
+      history.goBack();
+    } else if (family_uuid) {
       historyPush(modulesManager, history, "insuree.route.familyOverview", [family_uuid]);
     } else {
       historyPush(modulesManager, history, "insuree.route.insurees");
@@ -259,6 +261,8 @@ class InsureeForm extends Component {
       save,
       product
     } = this.props;
+    console.log("form props", this.props)
+    console.log("form state", this.state)
     const { insuree, clientMutationId } = this.state;
     if (!rights.includes(RIGHT_INSUREE)) return null;
     let runningMutation = !!insuree && !!clientMutationId;

@@ -261,8 +261,6 @@ class InsureeForm extends Component {
       save,
       product
     } = this.props;
-    console.log("form props", this.props)
-    console.log("form state", this.state)
     const { insuree, clientMutationId } = this.state;
     if (!rights.includes(RIGHT_INSUREE)) return null;
     let runningMutation = !!insuree && !!clientMutationId;

@@ -123,7 +123,7 @@ class InsureeFilter extends Component {
   };
 
   render() {
-    const { intl, classes, filters, onChangeFilters, rights } = this.props;
+    const { intl, classes, filters, onChangeFilters } = this.props;
     return (
       <Grid container className={classes.form}>
         <ControlledField

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { injectIntl } from "react-intl";
 import _debounce from "lodash/debounce";
 
-import { Checkbox, FormControlLabel, Grid, Box, Tabs, Tab } from "@material-ui/core";
+import { Checkbox, FormControlLabel, Grid } from "@material-ui/core";
 import { withTheme, withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import {

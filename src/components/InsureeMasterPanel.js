@@ -466,7 +466,7 @@ class InsureeMasterPanel extends FormPanel {
                 ) : (
                   canRegister?.allowed ? "" : (
                     <Alert variant="outlined" severity="error">
-                      The registration period has now ended. It was open from {canRegister?.startDate} to {canRegister?.endDate}.
+                      The registration period is currently closed.. It was open from {canRegister?.startDate} to {canRegister?.endDate}.
                     </Alert>
                   )
                 ) : ""}

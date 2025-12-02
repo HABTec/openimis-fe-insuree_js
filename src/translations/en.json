@@ -211,6 +211,7 @@
   "insuree.insureeSummaries.goToFamilyButton": "Go to family",
   "insuree.insureeSummaries.goToTheProfile": "Go to profile",
   "insuree.InsureeFilter.showHistory": "Show historical values",
+  "insuree.InsureeFilter.checkedIn" : "Show checked-in Insurees",
   "insuree.PhotoStatus": "Photo status",
   "insuree.PhotoStatus.null": "Any",
   "insuree.PhotoStatus.with": "With",

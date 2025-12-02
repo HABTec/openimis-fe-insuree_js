@@ -48,6 +48,8 @@ import InsureeFamilyOverviewReport from "./reports/InsureeFamilyOverviewReport";
 import InsureeMissingPhotoReport from "./reports/InsureeMissingPhotoReport";
 import InsureePendingEnrollmentReport from "./reports/InsureePendingEnrollmentReport";
 import { RIGHT_FAMILY, RIGHT_FAMILY_ADD, RIGHT_INSUREE } from "./constants";
+import InsureeForm from "./components/InsureeForm";
+import InsureeSearcher from "./components/InsureeSearcher";
 
 const ROUTE_INSUREE_FAMILIES = "insuree/families";
 const ROUTE_INSUREE_FAMILY_OVERVIEW = "insuree/families/familyOverview";
@@ -146,6 +148,8 @@ const DEFAULT_CONFIG = {
     { key: "insuree.InsureeAddress", ref: InsureeAddress },
     { key: "insuree.ProfileLink", ref: InsureeProfileLink },
     { key: "insuree.CappedItemServiceLink", ref: InsureeCappedItemServiceLink },
+    { key: "insuree.components.InsureeSearcher", ref: InsureeSearcher },
+    { key: "insuree.components.InsureeForm", ref: InsureeForm },
   ],
   "core.Router": [
     { path: ROUTE_INSUREE_FAMILIES, component: FamiliesPage },

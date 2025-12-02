@@ -71,7 +71,9 @@ class InsureeForm extends Component {
 
   back = (e) => {
     const { modulesManager, history, family_uuid, insuree_uuid } = this.props;
-    if (family_uuid) {
+    if (history.length > 2){
+      history.goBack();
+    } else if (family_uuid) {
       historyPush(modulesManager, history, "insuree.route.familyOverview", [family_uuid]);
     } else {
       historyPush(modulesManager, history, "insuree.route.insurees");

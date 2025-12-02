@@ -4,7 +4,7 @@ import _debounce from "lodash/debounce";
 
 import { Checkbox, FormControlLabel, Grid } from "@material-ui/core";
 import { withTheme, withStyles } from "@material-ui/core/styles";
-
+import { connect } from "react-redux";
 import {
   withModulesManager,
   formatMessage,
@@ -13,7 +13,7 @@ import {
   ControlledField,
   TextInput,
 } from "@openimis/fe-core";
-import { DEFAULT, WITHOUT_STR } from "../constants";
+import { DEFAULT, RIGHT_INSUREE_CHECK_IN, WITHOUT_STR } from "../constants";
 
 const styles = (theme) => ({
   dialogTitle: theme.dialog.title,
@@ -211,12 +211,12 @@ class InsureeFilter extends Component {
         />
         
         <Grid item xs={3}>
-          <Grid container>
+          <Grid container alignItems="center">
             <ControlledField
               module="insuree"
               id="InsureeFilter.photoStatus"
               field={
-                <Grid item xs={6} className={classes.item}>
+                <Grid item xs={4} className={classes.item}>
                   <PublishedComponent
                     pubRef="insuree.PhotoStatusPicker"
                     value={this._filterValue("photoStatus")}
@@ -237,7 +237,7 @@ class InsureeFilter extends Component {
               module="insuree"
               id="InsureeFilter.showHistory"
               field={
-                <Grid item xs={6} className={classes.item}>
+                <Grid item xs={4} className={classes.item}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -251,6 +251,27 @@ class InsureeFilter extends Component {
                 </Grid>
               }
             />
+
+            {this.props.rights.includes(RIGHT_INSUREE_CHECK_IN) && (
+              <ControlledField
+                module="insuree"
+                id="InsureeFilter.checkedIn"
+                field={
+                  <Grid item xs={4} className={classes.item}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          color="primary"
+                          checked={!!this._filterValue("isCheckedIn")}
+                          onChange={(event) => this._onChangeCheckbox("isCheckedIn", event.target.checked)}
+                        />
+                      }
+                      label={formatMessage(intl, "insuree", "InsureeFilter.checkedIn")}
+                    />
+                  </Grid>
+                }
+              />
+            )}
           </Grid>
         </Grid>
         <Contributions
@@ -263,4 +284,8 @@ class InsureeFilter extends Component {
   }
 }
 
-export default withModulesManager(injectIntl(withTheme(withStyles(styles)(InsureeFilter))));
+const mapStateToProps = (state) => ({
+  rights: !!state.core && !!state.core.user && !!state.core.user.i_user ? state.core.user.i_user.rights : [],
+});
+
+export default connect(mapStateToProps)(withModulesManager(injectIntl(withTheme(withStyles(styles)(InsureeFilter)))));

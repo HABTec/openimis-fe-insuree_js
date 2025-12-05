@@ -308,6 +308,7 @@ class InsureeSearcher extends Component {
       filterPaneContributionsKey,
       cacheFiltersKey,
       onDoubleClick,
+      defaultFilters,
     } = this.props;
     const { searchInitiated } = this.state;
     let count = (insureesPageInfo?.totalCount || 0).toLocaleString();
@@ -319,6 +320,7 @@ class InsureeSearcher extends Component {
           module="insuree"
           cacheFiltersKey={cacheFiltersKey}
           FilterPane={InsureeFilter}
+          defaultFilters={defaultFilters}
           filterPaneContributionsKey={filterPaneContributionsKey}
           items={insurees}
           itemsPageInfo={insureesPageInfo}

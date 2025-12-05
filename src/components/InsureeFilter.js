@@ -13,7 +13,7 @@ import {
   ControlledField,
   TextInput,
 } from "@openimis/fe-core";
-import { DEFAULT, RIGHT_INSUREE_CHECK_IN, WITHOUT_STR } from "../constants";
+import { DEFAULT, RIGHT_INSUREE_CHECK_IN, WITHOUT_STR, RIGHT_CLAIM } from "../constants";
 
 const styles = (theme) => ({
   dialogTitle: theme.dialog.title,
@@ -123,7 +123,8 @@ class InsureeFilter extends Component {
   };
 
   render() {
-    const { intl, classes, filters, onChangeFilters } = this.props;
+    const { intl, classes, filters, onChangeFilters, rights } = this.props;
+    const IS_CHECK_IN_DISABLED = this.props.rights.includes(RIGHT_CLAIM)
     return (
       <Grid container className={classes.form}>
         <ControlledField
@@ -264,6 +265,7 @@ class InsureeFilter extends Component {
                           color="primary"
                           checked={!!this._filterValue("isCheckedIn")}
                           onChange={(event) => this._onChangeCheckbox("isCheckedIn", event.target.checked)}
+                          disabled={IS_CHECK_IN_DISABLED}
                         />
                       }
                       label={formatMessage(intl, "insuree", "InsureeFilter.checkedIn")}

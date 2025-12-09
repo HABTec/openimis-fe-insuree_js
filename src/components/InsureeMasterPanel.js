@@ -10,6 +10,8 @@ import {
   TextInput,
   Contributions,
   withModulesManager,
+  convertToEthiopianDate,
+  formatMessageWithValues
 } from "@openimis/fe-core";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -461,12 +463,23 @@ class InsureeMasterPanel extends FormPanel {
               <Grid item xs={12} className={classes.item}>
                 {canRegister ? !canRegister?.startDate && !canRegister?.endDate ? (
                   <Alert variant="outlined" severity="warning">
-                    Registration Start and end dates should be configured.
+                    {formatMessage(
+                      this.props.intl,
+                      "policy",
+                      "enrollmentPeriodNotConfigured"
+                    )}
                   </Alert>
                 ) : (
                   canRegister?.allowed ? "" : (
                     <Alert variant="outlined" severity="error">
-                      The registration period is currently closed.. It was open from {canRegister?.startDate} to {canRegister?.endDate}.
+                        {
+                          formatMessageWithValues(
+                            this.props.intl,
+                            "policy",
+                            "enrollmentPeriodExpired",
+                            { startDate: convertToEthiopianDate(canRegister?.startDate), endDate: convertToEthiopianDate(canRegister?.endDate) }
+                          )
+                        }
                     </Alert>
                   )
                 ) : ""}

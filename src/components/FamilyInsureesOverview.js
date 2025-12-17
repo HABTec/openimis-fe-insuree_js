@@ -228,8 +228,8 @@ class FamilyInsureesOverview extends PagedDataHandler {
     this.props.onActionToConfirm(
       formatMessageWithValues(this.props.intl, "insuree", "setHeadInsureeDialog.title", { label: insureeLabel(i) }),
       formatMessageWithValues(this.props.intl, "insuree", "setHeadInsureeDialog.message", {
-        current: insureeLabel(i),
-        new: insureeLabel(this.props.family.headInsuree),
+        current:insureeLabel(this.props.family.headInsuree),
+        new:  insureeLabel(i),
       }),
       confirmedAction,
     );

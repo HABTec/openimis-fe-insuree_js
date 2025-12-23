@@ -18,7 +18,7 @@ import {
   Helmet,
 } from "@openimis/fe-core";
 import { fetchInsureeFull, fetchFamily, clearInsuree, fetchInsureeMutation } from "../actions";
-import { DEFAULT, disabilityStatusOptions, INSUREE_ACTIVE_STRING, RIGHT_INSUREE } from "../constants";
+import { INSUREE_ACTIVE_STRING, INSUREE_INACTIVE_STRING, RIGHT_INSUREE } from "../constants";
 import { insureeLabel, isValidInsuree } from "../utils/utils";
 import FamilyDisplayPanel from "./FamilyDisplayPanel";
 import InsureeMasterPanel from "../components/InsureeMasterPanel";
@@ -202,14 +202,27 @@ class InsureeForm extends Component {
     const doesInsureeChange = this.doesInsureeChange();
     if (!doesInsureeChange) return false;
     if (this.state.lockNew) return false;
-    if (!this.isCurrentDateInRange() ) return false;
-
     return isValidInsuree(this.state.insuree, this.props.modulesManager);
     
   };
 
   _save = (insuree) => {
-    
+    const {
+      product
+    } = this.props;
+    const today = new Date();
+    const dobDate = new Date(insuree.dob);
+    let age = NaN;
+    if (!isNaN(dobDate)) {
+      age = today.getFullYear() - dobDate.getFullYear();
+      const monthDiff = today.getMonth() - dobDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+        age -= 1;
+      }
+    }
+    if (!this.isCurrentDateInRange() && insuree.uuid === undefined && age >= 18){
+      insuree.status = INSUREE_INACTIVE_STRING
+    }
     if (insuree.uuid) {
       if (!this.doesPhotoChange()) delete insuree.photo
     }
@@ -283,6 +296,7 @@ class InsureeForm extends Component {
         <ProgressOrError progress={fetchingFamily} error={errorFamily} />
         {((!!fetchedInsuree && !!insuree && insuree.uuid === insuree_uuid) || !insuree_uuid) &&
           ((!!fetchedFamily && !!family && family.uuid === family_uuid) || !family_uuid) && (
+            <>
             <Form
               module="insuree"
               title="Insuree.title"
@@ -308,6 +322,7 @@ class InsureeForm extends Component {
                 endDate: product?.enrolmentPeriodEndDate,
               }}
             />
+            </>
           )}
       </div>
     );

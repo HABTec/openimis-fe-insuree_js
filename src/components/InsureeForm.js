@@ -18,7 +18,7 @@ import {
   Helmet,
 } from "@openimis/fe-core";
 import { fetchInsureeFull, fetchFamily, clearInsuree, fetchInsureeMutation } from "../actions";
-import { DEFAULT, disabilityStatusOptions, INSUREE_ACTIVE_STRING,INSUREE_INACTIVE_STRING, RIGHT_INSUREE } from "../constants";
+import { INSUREE_ACTIVE_STRING, INSUREE_INACTIVE_STRING, RIGHT_INSUREE } from "../constants";
 import { insureeLabel, isValidInsuree } from "../utils/utils";
 import FamilyDisplayPanel from "./FamilyDisplayPanel";
 import InsureeMasterPanel from "../components/InsureeMasterPanel";

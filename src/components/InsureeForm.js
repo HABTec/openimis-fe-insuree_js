@@ -209,7 +209,7 @@ class InsureeForm extends Component {
       product
     } = this.props;
     let age = new Date().getFullYear() - new Date(insuree.dob).getFullYear();
-    if (!this.isCurrentDateInRange() && insuree.uuid == undefined && age >= 18){
+    if (!this.isCurrentDateInRange() && insuree.uuid === undefined && age >= 18){
       insuree.status = INSUREE_INACTIVE_STRING
     }
     if (insuree.uuid) {

@@ -292,5 +292,6 @@
   "insuree.gql_mutation_delete_families_perms": "Insuree | Mutation Delete Families",
   "insuree.gql_mutation_create_insurees_perms": "Insuree | Mutation Create Insurees",
   "insuree.gql_mutation_update_insurees_perms": "Insuree | Mutation Update Insurees",
-  "insuree.gql_mutation_delete_insurees_perms": "Insuree | Mutation Delete Insurees"
+  "insuree.gql_mutation_delete_insurees_perms": "Insuree | Mutation Delete Insurees",
+  "insuree.enrollmentPeriodPassed": "Enrollment isn’t open at the moment."
 }

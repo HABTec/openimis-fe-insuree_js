@@ -18,7 +18,7 @@ import {
   Helmet,
 } from "@openimis/fe-core";
 import { fetchInsureeFull, fetchFamily, clearInsuree, fetchInsureeMutation } from "../actions";
-import { DEFAULT, disabilityStatusOptions, INSUREE_ACTIVE_STRING,INSUREE_INACTIVE_STRING, RIGHT_INSUREE } from "../constants";
+import { INSUREE_ACTIVE_STRING, INSUREE_INACTIVE_STRING, RIGHT_INSUREE } from "../constants";
 import { insureeLabel, isValidInsuree } from "../utils/utils";
 import FamilyDisplayPanel from "./FamilyDisplayPanel";
 import InsureeMasterPanel from "../components/InsureeMasterPanel";
@@ -71,7 +71,9 @@ class InsureeForm extends Component {
 
   back = (e) => {
     const { modulesManager, history, family_uuid, insuree_uuid } = this.props;
-    if (family_uuid) {
+    if (history.length > 2){
+      history.goBack();
+    } else if (family_uuid) {
       historyPush(modulesManager, history, "insuree.route.familyOverview", [family_uuid]);
     } else {
       historyPush(modulesManager, history, "insuree.route.insurees");
@@ -208,8 +210,17 @@ class InsureeForm extends Component {
     const {
       product
     } = this.props;
-    let age = new Date().getFullYear() - new Date(insuree.dob).getFullYear();
-    if (!this.isCurrentDateInRange() && insuree.uuid == undefined && age >= 18){
+    const today = new Date();
+    const dobDate = new Date(insuree.dob);
+    let age = NaN;
+    if (!isNaN(dobDate)) {
+      age = today.getFullYear() - dobDate.getFullYear();
+      const monthDiff = today.getMonth() - dobDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+        age -= 1;
+      }
+    }
+    if (!this.isCurrentDateInRange() && insuree.uuid === undefined && age >= 18){
       insuree.status = INSUREE_INACTIVE_STRING
     }
     if (insuree.uuid) {

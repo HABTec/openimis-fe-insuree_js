@@ -462,21 +462,15 @@ class InsureeMasterPanel extends FormPanel {
               />
               <Grid item xs={12} className={classes.item}>
                 {canRegister ? !canRegister?.startDate && !canRegister?.endDate ? (
-                  <Alert variant="outlined" severity="warning">
-                    {formatMessage(
-                      this.props.intl,
-                      "policy",
-                      "enrollmentPeriodNotConfigured"
-                    )}
-                  </Alert>
+                  <></>
                 ) : (
                   canRegister?.allowed ? "" : (
                     <Alert variant="outlined" severity="error">
                         {
                           formatMessageWithValues(
                             this.props.intl,
-                            "policy",
-                            "enrollmentPeriodExpired",
+                            "insuree",
+                            "enrollmentPeriodPassed",
                             { startDate: convertToEthiopianDate(canRegister?.startDate), endDate: convertToEthiopianDate(canRegister?.endDate) }
                           )
                         }

@@ -423,27 +423,19 @@ class InsureeMasterPanel extends FormPanel {
                       onChange={(v) => this.updateAttribute("passport", !!v ? v : null)}
                     />
                   </Grid>
-                  
-                  {!!edited &&
-                    !!edited.family &&
-                    !!edited.family.headInsuree &&
-                    edited.family.headInsuree.id !== edited.id &&
-                    <Grid item xs={3} className={classes.item}>
-
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            color="primary"
-                            checked={!!edited && !!edited.isActive}
-                            disabled={readOnly}
-                            onChange={(v) => this.updateAttribute("isActive", !edited || !edited.isActive)}
-                          />
-                        }
-                        // label={formatMessage(intl, "insuree", "Insuree.cardIssued")}
-                        label={"Active"}
-                      />
-                    </Grid>
-                  }
+                   <Grid item xs={3} className={classes.item}>
+                    <PublishedComponent
+                      pubRef="insuree.InsureeStatusPicker"
+                      label="Insuree.status"
+                      value={edited?.status}
+                      withNull={false}
+                      module="insuree"
+                      readOnly={!edited?.uuid || readOnly}
+                      onChange={(v) => this.updateAttributes({ "status": v, "statusReason": null })}
+                      required={this.isInsureeStatusRequired}
+                    />
+                  </Grid>
+                 
                 </Grid>
               </Grid>
               <Grid item xs={4} className={classes.item}>

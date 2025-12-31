@@ -38,6 +38,8 @@ class InsureeGenderPicker extends Component {
       placeholder,
       value,
       reset,
+      headInsuree = null,
+      relationship = null,
       readOnly = false,
       required = false,
       withNull = false,
@@ -45,6 +47,14 @@ class InsureeGenderPicker extends Component {
     let options = !!insureeGenders ? insureeGenders.map((v) => ({ value: v, label: this.formatSuggestion(v) })) : [];
     if (withNull) {
       options.unshift({ value: null, label: this.formatSuggestion(null) });
+    }
+    if (headInsuree && relationship === 8) {
+      if (headInsuree.gender.code === "F" ) {
+        options = options.filter((o) => o.value !== "F");
+      }
+      else if(headInsuree.gender.code === "M") {
+        options = options.filter((o) => o.value !== "M");
+      }
     }
     return (
       <SelectInput

@@ -204,6 +204,8 @@ class InsureeMasterPanel extends FormPanel {
                           readOnly={readOnly}
                           value={!!edited && !!edited.relationship ? edited.relationship.id : ""}
                           onChange={(v) => this.updateAttribute("relationship", { id: v })}
+                          headInsuree={!!edited && !!edited.family && !!edited.family.headInsuree ? edited.family.headInsuree : null}
+                          memberGender={!!edited && edited.gender && edited.gender.code ? edited.gender.code : null}
                         />
                       </Grid>
                     )}

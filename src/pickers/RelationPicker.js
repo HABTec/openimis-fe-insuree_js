@@ -48,7 +48,6 @@ class RelationPicker extends Component {
     } = this.props;
     let options = relations;
     if(headInsuree && memberGender) {
-      console.log(options)
       if (headInsuree.gender.code === memberGender ) {
         options = relations.filter((o) => o !== 8);
       }

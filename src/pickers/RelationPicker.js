@@ -39,15 +39,23 @@ class RelationPicker extends Component {
       placeholder,
       value,
       reset,
+      memberGender = null,
+      headInsuree = null,
       readOnly = false,
       required = false,
       withNull = false,
       nullLabel = null,
     } = this.props;
+    let options = relations;
+    if(headInsuree && memberGender) {
+      if (headInsuree.gender.code === memberGender ) {
+        options = relations.filter((o) => o !== 8);
+      }
+    }
     return (
       <AutoSuggestion
         module="insuree"
-        items={relations}
+        items={options}
         label={!!withLabel && (label || formatMessage(intl, "insuree", "RelationPicker.label"))}
         placeholder={
           !!withPlaceholder ? placeholder || formatMessage(intl, "insuree", "RelationPicker.placehoder") : null

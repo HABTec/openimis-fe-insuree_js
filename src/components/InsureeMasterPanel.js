@@ -115,7 +115,7 @@ class InsureeMasterPanel extends FormPanel {
   validateId = (edited, intl = this.props.intl) => {
     if (!!edited && !!edited.typeOfId) {
       if (edited.typeOfId.code == "N") {
-        if (edited.passport?.length < 12 || edited.passport?.length > 12 || isNaN(Number(edited.passport))) {
+        if (edited.passport?.length < 16 || edited.passport?.length > 16 || isNaN(Number(edited.passport))) {
           return formatMessage(intl, "insuree", "Insuree.InvalidNationalId")
         }
       }
